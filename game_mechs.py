@@ -1,46 +1,53 @@
-""" Functions and of 4 in a row """
+""" Functions and concepts of 4 in a row """
 
 # some variables
 
 PLAYER = 1
 cas = 0
 
-board = [["0", "0", "0", "0"], ["0", "0", "0", "0"],  # Original Board
-         ["0", "0", "0", "0"], ["0", "0", "0", "0"]]
+# board: a 7x6 array
+
+board = [["0", "0", "0", "0", "0", "0", "0"],
+         ["0", "0", "0", "0", "0", "0", "0"],
+         ["0", "0", "0", "0", "0", "0", "0"],
+         ["0", "0", "0", "0", "0", "0", "0"],
+         ["0", "0", "0", "0", "0", "0", "0"],
+         ["0", "0", "0", "0", "0", "0", "0"]]
 
 
 def printer(matrix):  # Prints the board
-    for j in range(4):
-        for i in range(4):
-            print(matrix[j][i], end=" |")
+    for j in range(len(board)):
+        for i in range(len(board[0])):
+            print(matrix[j][i], end=" ")
         print("")
 
 
 def cleaner():  # Erase the options into the board
-    for j in range(4):
-        for i in range(4):
-            if board[i][j] in [1, 2, 3, 4]:
+    for j in range(len(board[0])):
+        for i in range(len(board)):
+            if board[i][j] in [1, 2, 3, 4, 5, 6, 7]:
                 board[i][j] = "0"
 
 
 def options(count):  # Options for put a mark into the board
-    for j in range(4):
-        if board[3][j] == "0":
-            board[3][j] = count + 1
+    limit = len(board) - 1
+    for j in range(len(board[0])):
+        if board[len(board) - 1][j] == "0":
+            board[len(board) - 1][j] = count + 1
             count = count + 1
-            if count == 4:
+            if count == 7:
                 break
-    if count < 4:
-        for i in range(4):
-            for j in range(3):
+    if count < len(board[0]):
+        for i in range(len(board[0])):
+            for j in range(limit):
                 if board[j+1][i] in ["X", "O"] and board[j][i] in ["0"]:
                     board[j][i] = count + 1
                     count = count + 1
-                    if count == 4:
+                    if count == len(board[0]):
                         break
 
 
-def draw(zero):# in one hand Prove that the game can continue, on the other handend the game in a draw 
+def draw(zero):  # in one hand Prove that the game can continue, on the other handend the game in a draw
     for j in range(4):
         for i in range(4):
             if board[i][j] == "0":
@@ -51,70 +58,69 @@ def draw(zero):# in one hand Prove that the game can continue, on the other hand
         return 0
 
 
-def checker():  # Combinations for victory
-    if board[0][0] == "X" and board[1][1] == "X" and board[2][2] == "X" and board[3][3] == "X":  # win for 1
-        print("victory for 1")
-        return 1
-    elif board[0][3] == "X" and board[1][2] == "X" and board[2][1] == "X" and board[3][0] == "X":
-        print("victory for 1")
-        return 1
-    elif board[0][0] == "X" and board[0][1] == "X" and board[0][2] == "X" and board[0][3] == "X":
-        print("victory for 1")
-        return 1
-    elif board[1][0] == "X" and board[1][1] == "X" and board[1][2] == "X" and board[1][3] == "X":
-        print("victory for 1")
-        return 1
-    elif board[2][0] == "X" and board[2][1] == "X" and board[2][2] == "X" and board[2][3] == "X":
-        print("victory for 1")
-        return 1
-    elif board[3][0] == "X" and board[3][1] == "X" and board[3][2] == "X" and board[3][3] == "X":
-        print("victory for 1")
-        return 1
-    elif board[0][0] == "X" and board[1][0] == "X" and board[2][0] == "X" and board[3][0] == "X":
-        print("victory for 1")
-        return 1
-    elif board[0][1] == "X" and board[1][1] == "X" and board[2][1] == "X" and board[3][1] == "X":
-        print("victory for 1")
-        return 1
-    elif board[0][2] == "X" and board[1][2] == "X" and board[2][2] == "X" and board[3][2] == "X":
-        print("victory for 1")
-        return 1
-    elif board[0][3] == "X" and board[1][3] == "X" and board[2][3] == "X" and board[3][3] == "X":
-        print("victory for 1")
-        return 1
+def checker(board):  # Checks the situation of the game
+    for j in range(6):
+        for i in range(7):
+            if ((str(board[j][i]) in ["X", "O"]) and
+                (winLinesHorizontal(j, i, board[j][i]) == 0 or
+                 winLinesVertical(j, i, board[j][i]) == 0 or
+                 winLinesDiagOne(j, i, board[j][i]) == 0 or
+                 winLinesDiagTwo(j, i, board[j][i]) == 0)):
 
-    elif board[0][0] == "O" and board[1][1] == "O" and board[2][2] == "O" and board[3][3] == "O":  # win for 2
-        print("victory for 2")
-        return 2
-    elif board[0][3] == "O" and board[1][2] == "O" and board[2][1] == "O" and board[3][0] == "O":
-        print("victory for 2")
-        return 2
-    elif board[0][0] == "O" and board[0][1] == "O" and board[0][2] == "O" and board[0][3] == "O":
-        print("victory for 2")
-        return 2
-    elif board[1][0] == "O" and board[1][1] == "O" and board[1][2] == "O" and board[1][3] == "O":
-        print("victory for 2")
-        return 2
-    elif board[2][0] == "O" and board[2][1] == "O" and board[2][2] == "O" and board[2][3] == "O":
-        print("victory for 2")
-        return 2
-    elif board[3][0] == "O" and board[3][1] == "O" and board[3][2] == "O" and board[3][3] == "O":
-        print("victory for 2")
-        return 2
-    elif board[0][0] == "O" and board[1][0] == "O" and board[2][0] == "O" and board[3][0] == "O":
-        print("victory for 2")
-        return 2
-    elif board[0][1] == "O" and board[1][1] == "O" and board[2][1] == "O" and board[3][1] == "O":
-        print("victory for 2")
-        return 2
-    elif board[0][2] == "O" and board[1][2] == "O" and board[2][2] == "O" and board[3][2] == "O":
-        print("victory for 2")
-        return 2
-    elif board[0][3] == "O" and board[1][3] == "O" and board[2][3] == "O" and board[3][3] == "O":
-        print("victory for 2")
-        return 2
-    elif draw(0) == 1:#The board is full without an winner combination
-        print("Draw!")  
+                sweetVictory(board[j][i])
+
+                return 1
+
+    if draw(0) == 1:
+        print("Draw!!")
         return 4
     else:
-        return 0#The game can continue
+        return 0
+
+
+# finds a winning position in Horizontal
+def winLinesHorizontal(x=int, y=int, symbol=str):
+    if y+1 < len(board[0]):
+        if board[x][y+1] == symbol:
+            if y+2 < len(board[0]):
+                if board[x][y+2] == symbol:
+                    if y+3 < len(board[0]):
+                        if board[x][y+3] == symbol:
+                            return 0
+
+
+# finds a winning position in Horizontal
+def winLinesVertical(x=int, y=int, symbol=str):
+    if x+1 < len(board):
+        if board[x+1][y] == symbol:
+            if x+2 < len(board):
+                if board[x+2][y] == symbol:
+                    if x+3 < len(board):
+                        if board[x+3][y] == symbol:
+                            return 0
+
+
+# finds a winning position in left-right diagonals
+def winLinesDiagOne(x=int, y=int, symbol=str):
+    if x+1 < len(board) and y+1 < len(board[0]):
+        if board[x+1][y+1] == symbol:
+            if x+2 < len(board) and y+2 < len(board[0]):
+                if board[x+2][y+2] == symbol:
+                    if x+3 < len(board) and y+3 < len(board[0]):
+                        if board[x+3][y+3] == symbol:
+                            return 0
+
+
+# finds a winning position in right-left diagonals --- REVISARa   s
+def winLinesDiagTwo(x=int, y=int, symbol=str):
+    if x-1 > 0 and y+1 < len(board[0]):
+        if board[x-1][y+1] == symbol:
+            if x-2 > 0 and y+2 < len(board[0]):
+                if board[x-2][y+2] == symbol:
+                    if x-3 > 0 and y+3 < len(board[0]):
+                        if board[x-3][y+3] == symbol:
+                            return 0
+
+
+def sweetVictory(symbol=str):  # Victoty Visualizer
+    print("win for", symbol, "!!")

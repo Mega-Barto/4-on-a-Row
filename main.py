@@ -9,19 +9,21 @@ while not(so in ["clear", "cls"]):#this is a method for select an clear command 
     so = int(input("Choose your O.S. (1. Win, 2. Linux):")) 
     if so == 1:
         so = "cls"
+        system(so)
     elif so == 2:
         so = "clear"
+        system(so)
     else:
         print("select a valid option")
 
-while checker() == 0 and checker() != 4: #From game_mechs
+while checker(board) == 0 and checker(board) != 4: #From game_mechs
     print("Turn of",PLAYER)#Prints turns
     options(0) #First place the possible options for put a mark
     printer(board) #Next is print the board
     cas = int(input("--> ")) #Now an input for select a place for put a mark
 
-    for i in range(4): #The program find in the board/array if the number is valid
-        for j in range(4):
+    for i in range(6): #The program find in the board/array if the number is valid
+        for j in range(7):
             if board[i][j] == cas: #if a match is found, the program will put the correspondent mark in his place
                 if PLAYER == 1:
                     board[i][j] = "X" 
