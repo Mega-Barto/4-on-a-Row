@@ -30,22 +30,19 @@ def cleaner():  # Erase the options into the board
 
 
 def options(count):  # Options for put a mark into the board
-    limit = len(board) - 1
-    for j in range(len(board[0])):
-        if board[len(board) - 1][j] == "0":
-            board[len(board) - 1][j] = count + 1
-            count = count + 1
-            if count == 7:
-                break
-    if count < len(board[0]):
-        for i in range(len(board[0])):
-            for j in range(limit):
-                if board[j+1][i] in ["X", "O"] and board[j][i] in ["0"]:
-                    board[j][i] = count + 1
+    for i in range(len(board[0])):
+        for j in range(len(board)):
+            if j == len(board) - 1:
+                if board[j][i]  == "0":
+                    board[j][i] = count + 1 
                     count = count + 1
-                    if count == len(board[0]):
-                        break
-
+            elif board[j+1][i] in ["X", "O"] and board[j][i] in ["0"]:
+                    board[j][i] = count + 1 
+                    count = count + 1
+            if count == len(board[0]):
+                break
+        if count == len(board[0]):
+            break
 
 def draw(zero):  # in one hand Prove that the game can continue, on the other handend the game in a draw
     for j in range(4):
