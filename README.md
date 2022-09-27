@@ -2,7 +2,7 @@
 
 ## Details
 
-![release](https://badgen.net/badge/release/0.1)
+![release](https://badgen.net/badge/release/0.2)
 [![python](https://badgen.net/badge/python/3.10)](https://www.python.org/)
 
 ## Description
@@ -15,16 +15,16 @@ Made in Python.
 
 Enter the number corresponding to a box. You win when you get a line with your brand.
 
-The concept of the game is that it works like traditional 4 in a row which, unlike tik tak toe, is affected by gravity.
+The concept of the game is the used in "connect four", unlike tik tak toe, is affected by gravity.
 
 The latter is what the program emulates.
 
 ## Notes about the project
 
 <ul>
-<li>This program uses a 4x4 board, but the original 4 in a row board is 7x6<./li>
-<li>Win checking uses an if sequence, but theoretically an optimal solution is to implement a loop that checks for wins.</li>
-<li>Dashboard display needs a cosmetic makeover.</li>
+<li>This program uses a 7x6 board, like the original connect four game.</li>
+<li>Now, the program uses an if sequences for each mark for analize a winning situation.</li>
+<li>Dashboard display needs a cosmetic makeover. </li>
 <li>I'm thinking of upgrading to a graphical mode, but I want to work on the details of the terminal mode until it works in optimal conditions.</li>
 </ul>
 
